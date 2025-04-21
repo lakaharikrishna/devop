@@ -1,0 +1,35 @@
+blk_queue_hardsect_size:
+This function is used to inform the kernel about the hardware sector size when the request queue for a gendisk is initialized. 
+
+The struct gendisk in Linux represents a disk device within the kernel's block layer. It stores information about the disk, including its major and minor numbers, name, file operations, request queue, capacity, and driver-specific data. This structure is essential for block device drivers to interact with the kernel and manage disk operations. 
+
+Key Fields:
+major: The major number of the device, used for identifying the device driver. 
+first_minor: The first minor number assigned to the disk. 
+disk_name: The name of the disk as it appears in /proc/partitions and /sys/block. 
+fops: A pointer to the struct block_device_operations structure, containing the file operations for the device (e.g., open, close, ioctl). 
+queue: A pointer to the struct request_queue structure, managing the queue of I/O requests for the disk. 
+capacity: The disk capacity in 512-byte sectors. 
+private_data: A pointer to driver-specific data, allowing drivers to store their internal information related to the disk. 
+flags: A set of flags that control the disk's management, such as whether it's removable or hidden, according to the Linux Kernel documentation. 
+
+struct gendisk is a dynamically allocated structure that requires special kernel manipulation to be initialized; drivers cannot allocate the structure on their own. Instead, you must call: struct gendisk *alloc_disk(int minors);
+
+In summary, the struct gendisk is a crucial structure in the Linux kernel's block layer, providing a way for block device drivers to manage and interact with disk devices, including their capacity, name, file operations, and I/O requests
+
+
+
+🔸️BLK_MODE_T is a type that represents the open mode for a block device in the Linux kernel. It's used to specify how a block device should be opened, such as for reading, writing, or both, and to determine if exclusive access is required. Specifically, it is used in functions like file_to_blk_mode and truncate_bdev_range. 
+Here's a more detailed breakdown:
+Purpose:
+blk_mode_t is a data type that defines the open mode for a block device. This is important because different operations on a block device, such as reading, writing, or truncating, require different open modes. 
+Usage:
+The blk_mode_t type is used in various functions related to block device operations, such as file_to_blk_mode, which converts a file's open mode to a blk_mode_t value, and truncate_bdev_range, which truncates the size of a block device. 
+Underlying Implementation:
+The blk_mode_t type is likely defined in the linux/blkdev.h header file. It's used in the block device layer of the Linux kernel. 
+
+
+
+
+
+
